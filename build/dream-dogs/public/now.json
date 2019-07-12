@@ -1,0 +1,15 @@
+{
+    "version": 2,
+    "name": "dream-dogs",
+    "alias": "a1arman-dream-dogs", 
+    "routes": [
+        {
+            "src": "^/static/(.*)",
+            "dest": "/static/$1"
+        },
+        {
+            "src": ".*",
+            "dest": "/index.html"
+        }
+    ]
+}

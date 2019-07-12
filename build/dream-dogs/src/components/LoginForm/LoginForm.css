@@ -1,0 +1,76 @@
+h2.login-title {
+    color: #c4f39f;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_form-container {
+    padding: 5rem;
+    transition: 0.3s;
+    border-radius: 5px;
+    margin-top: 0.5rem;
+    background-color: rgba(202,244,241, 0.2);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login_form-container:hover {
+    box-shadow: 0 8px 16px 0 rgba(255, 255, 255, 0.151);
+}
+
+.login_form label, .login_form input {
+    display: block;
+    text-align: start;
+    margin-top: 0.5rem;
+}
+
+.login_form input {
+    width: 20rem;
+    border: 1px solid #ccc;
+    padding: 0.2rem 0.5rem;
+    font: inherit;
+}
+
+.login_form input:focus {
+    outline: none;
+    border-color: rgb(4, 127, 168);
+}
+
+.login_form label {
+    font-weight: bold;
+}
+
+.login-title {
+    text-align: center;
+    font-size: 1.75rem;
+}
+
+.login_form button[type="submit"] {
+    display: block;
+    margin-top: 1rem;
+}
+
+
+@media only screen and (min-width: 40rem) {
+    .login_form {
+        margin: auto;
+        width: 35rem;
+    }
+}
+
+
+@media only screen and (min-width: 782px) {
+    .login_form-container {
+       width: 40rem;
+    }
+}
+
+
+

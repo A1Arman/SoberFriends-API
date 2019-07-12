@@ -1,0 +1,12 @@
+footer {
+    background-color: rgba(202,244,241, 0.2);
+}
+
+.footer-item {
+    text-decoration: none;
+    color: #d7efea;
+}
+
+.footer-item:hover {
+    color: #c4f39f;
+}

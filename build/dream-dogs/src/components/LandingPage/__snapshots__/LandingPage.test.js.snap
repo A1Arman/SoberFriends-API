@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LandingPage component renders without crashing 1`] = `
+<Fragment>
+  <main
+    className="landing-main"
+    role="main"
+  >
+    <header
+      className="landing-header"
+      role="banner"
+    >
+      <h1
+        id="landing-title"
+      >
+        Dream Dogs
+      </h1>
+      <h2
+        id="phrase"
+      >
+        Find Your Dream Dog.
+      </h2>
+      <Link
+        to="/posts"
+      >
+        <button
+          className="btn"
+        >
+          Demo App
+        </button>
+      </Link>
+    </header>
+    <section
+      className="desc-section"
+    >
+      <header>
+        <h3>
+          What is Dream Dogs?
+        </h3>
+      </header>
+      <p
+        className="desc"
+      >
+        Dream Dogs helps owners struggling to provide for their dogs to find a safe new home. Owners can create posts and also include a description of the dog, and the lifestyle needs of the dog.
+      </p>
+    </section>
+    <section>
+      <h3>
+        Dream Dogs Credentials
+      </h3>
+      <p>
+        Email: armanibhimani@gmail.com
+      </p>
+      <p>
+        Password: password
+      </p>
+    </section>
+    <Spotlight />
+  </main>
+</Fragment>
+`;

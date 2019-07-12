@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignUpForm component renders without crashing 1`] = `
+<section
+  className="flex-container"
+>
+  <header>
+    <h3
+      className="signup-title"
+    >
+      Find Your Dream Dog Today
+    </h3>
+  </header>
+  <section
+    className="form-container"
+  >
+    <form
+      className="signup_form"
+      id="signup_form"
+      onSubmit={[Function]}
+    >
+      <div>
+        <label
+          htmlFor="first_name"
+        >
+          First name:
+        </label>
+        <input
+          id="first-name"
+          name="first_name"
+          onChange={[Function]}
+          placeholder="First Name"
+          required={true}
+          type="text"
+        />
+        <ValidationError
+          hasError={true}
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="last_name"
+        >
+          Last name:
+        </label>
+        <input
+          id="last-name"
+          name="last_name"
+          onChange={[Function]}
+          placeholder="Last Name"
+          required={true}
+          type="text"
+        />
+        <ValidationError
+          hasError={true}
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="email"
+        >
+          Email:
+        </label>
+        <input
+          id="email"
+          name="email"
+          onChange={[Function]}
+          required={true}
+          type="email"
+        />
+        <ValidationError
+          hasError={true}
+          message=""
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="password"
+        >
+          Password (8 characters minimum):
+        </label>
+        <input
+          id="password"
+          minLength="8"
+          name="password"
+          onChange={[Function]}
+          required={true}
+          type="password"
+        />
+        <ValidationError
+          hasError={true}
+          message=""
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="confirm"
+        >
+          Confirm Password:
+        </label>
+        <input
+          id="confirm"
+          minLength="8"
+          name="confirm"
+          onChange={[Function]}
+          required={true}
+          type="password"
+        />
+        <ValidationError
+          hasError={true}
+          message=""
+        />
+      </div>
+      <button
+        className="sub-btn"
+        disabled={true}
+        type="submit"
+      >
+        Sign Up
+      </button>
+    </form>
+  </section>
+</section>
+`;

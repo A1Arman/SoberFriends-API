@@ -1,0 +1,23 @@
+.gif-section  {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5rem;
+}
+
+.gif-title {
+    font-size: 2.5rem;
+}
+
+.gif {
+    width: 15rem;
+    height:0;
+    padding-bottom: 10rem;
+    margin-right: 3rem;
+}
+
+.giphy-embed {
+    padding: 1rem 0;
+    border-radius: 1rem;
+    background-color: rgba(202,244,241, 0.2);
+}

@@ -1,0 +1,146 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 20px;
+    background-color: #004690;
+    color: #d7efea;
+    line-height: 1.5;
+    text-align: center;
+  }
+  
+  header {
+    backface-visibility: hidden;
+  }
+  
+  section {
+    min-height: 200px;
+    padding: 25px 10px;
+  }
+  
+  p {
+    margin: 0 auto;
+    max-width: 60ch;
+  }
+
+  h1#landing-title {
+    padding-top: 10rem;
+    color: #fbfbfb;
+  }
+
+  h2#phrase {
+    color: #fbfbfb;
+  }
+
+  h1, h2, h2, h4 {
+    font-family: 'IBM Plex Sans', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+
+  h2 {
+    font: 'IBM Plex Sans';
+  }
+
+  h3 {
+    color: #c4f39f;
+  }
+  
+  p + p {
+    margin-top: 15px;
+  }
+
+  #landing-title {
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+  }
+
+  #phrase {
+    animation-name: moveInRight;
+    animation-duration: 1s;
+    animation-timing-function: ease-in;
+  }
+
+  .landing-main {
+    overflow: hidden;
+  }
+
+  .landing-header {
+    height: 75vh;
+    margin-top: 1.5rem;
+    background-image: linear-gradient(
+        to right bottom, 
+        rgba(139, 179, 249, 0.712), 
+        rgba(139, 189, 235, 0.712)),
+        url('../../images/photo-1553531384-411a247ccd73.jpg');
+    background-size: cover;
+    background-position: left;
+    clip-path: polygon(0 0, 100% 0, 100% 55vh, 0 100%);
+  }
+
+  .btn,
+  .btn:visited {
+    background-color: #fff;
+    color: #004690;
+    border-color: #0046909d;
+    margin-top: 15px;
+    padding: 15px 40px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    transition: all .2s;
+    border-radius: 100px;
+  }
+
+  .btn:hover {
+    cursor: pointer;
+    transform: translateY(-2.5px);
+    box-shadow: 0 5px 15px rgba(0, 17, 255, 0.2);
+  }
+
+  .btn:active {
+    transform: translateY(-1px);
+  }
+
+  
+  @keyframes moveInLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(-100px);
+    }
+
+    80% {
+      transform: translateX(10px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translate(0);
+    }
+  }
+
+  @keyframes moveInRight {
+    0% {
+      opacity: 0;
+      transform: translateX(100px);
+    }
+
+    80% {
+      transform: translateX(-10px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translate(0);
+    }
+  }
+
+
+@media only screen and (min-width: 960px) {
+    main {
+      display: flex;
+      flex-direction: column;
+    }
+} 

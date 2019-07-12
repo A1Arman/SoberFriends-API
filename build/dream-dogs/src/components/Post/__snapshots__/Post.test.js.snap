@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Post component renders the complete form 1`] = `
+<main
+  className="flex-container"
+>
+  <header>
+    <h1
+      className="post-title"
+    >
+      New Post
+    </h1>
+  </header>
+  <section
+    className="post-form-section"
+  >
+    <form
+      className="post-form"
+      id="post-form"
+    >
+      <div
+        className="form-section"
+      >
+        <label
+          htmlFor="dog_name"
+        >
+          Dog Name
+        </label>
+        <input
+          name="dog_name"
+          placeholder="Jax"
+          required={true}
+          type="text"
+        />
+      </div>
+      <div
+        className="form-section"
+      >
+        <label
+          htmlFor="breed"
+        >
+          Breed
+        </label>
+        <input
+          name="breed"
+          placeholder="Maltipoo"
+          required={true}
+          type="text"
+        />
+      </div>
+      <div
+        className="form-section"
+      >
+        <label
+          htmlFor="dog_bday"
+        >
+          Birthdate
+        </label>
+        <input
+          name="dog_bday"
+          type="date"
+        />
+      </div>
+      <div
+        className="form-section"
+      >
+        <label
+          htmlFor="lifestyle"
+        >
+          Dog Lifestyle
+        </label>
+        <textarea
+          name="lifestyle"
+          placeholder="Please enter a description of your dogs needs and lifestyle"
+          required={true}
+          rows="15"
+        />
+      </div>
+      <button
+        className="sub-btn"
+        type="submit"
+      >
+        Submit
+      </button>
+      <button
+        className="res-btn"
+        type="reset"
+      >
+        Reset
+      </button>
+    </form>
+  </section>
+</main>
+`;
