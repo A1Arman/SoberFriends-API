@@ -19,7 +19,7 @@ app.use(cors())
 app.use(helmet())
 
 app.get('/', (req, res) => {
-    res.send('dream-dogs/index.html')
+    res.send('Hello, world')
 })
 
 app.get('/manifest.json', (req, res) => {
