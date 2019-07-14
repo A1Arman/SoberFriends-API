@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const xss = require('xss');
 const PostsService = require('./posts-service');
-
+const { requireAuth } = require('../middleware/auth');
 
 const postsRouter = express.Router();
 const jsonParser = express.json();
@@ -16,7 +16,7 @@ const serializePost = post => ({
 
 postsRouter
     .route('/')
-    .get((req, res, next) => {
+    .get(requireAuth, (req, res, next) => {
         const knexInstance = req.app.get('db');
         PostsService.getAllPosts(knexInstance)
             .then(posts => {
@@ -24,7 +24,7 @@ postsRouter
             })
             .catch(next);
     })
-    .post(jsonParser, (req, res, next) => {
+    .post(requireAuth, jsonParser, (req, res, next) => {
         const { post_title, post_content } = req.body
         const post = { post_title, post_content } 
 
@@ -48,7 +48,7 @@ postsRouter
 
     postsRouter
         .route('/:post_id')
-        .all((req, res, next) => {
+        .all(requireAuth, (req, res, next) => {
             const knexInstance = req.app.get('db');
             PostsService.getById(knexInstance, req.params.post_id)
                 .then(post => {
@@ -62,8 +62,8 @@ postsRouter
                 })
                 .catch(next)
         })
-        .get((req, res, next) => {res.json(serializePost(res.post))})
-        .patch(jsonParser, (req, res, next) => {
+        .get(requireAuth, (req, res, next) => {res.json(serializePost(res.post))})
+        .patch(requireAuth, jsonParser, (req, res, next) => {
             const { post_title, post_content} = req.body
             const postToUpdate = { post_title, post_content}
 

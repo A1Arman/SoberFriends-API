@@ -25,22 +25,46 @@ usersRouter
     })
     .post(jsonParser, (req, res, next) => {
         const { first_name, last_name, email, password, impact, money_spent } = req.body
-        const newUser = { first_name, last_name, email, password, impact, money_spent }
 
         for (const field of ['first_name', 'last_name', 'email', 'password', 'impact', 'money_spent'])
             if (!req.body[field])
-                return res.status(200).json({
+                return res.status(400).json({
                     error: { message: `Missing '${field} in body request`}
                 });
+        
+        const passwordError = UsersService.validatePassword(password)
 
-        UsersService.insertUser(req.app.get('db'), newUser)
-                .then(user => {
-                    res 
-                        .status(201)
-                        .location(path.posix.join(req.originalUrl, `/${user.id}`))
-                        .json(serializeUser(user))
-                })
-                .catch(next) 
+        if (passwordError)
+                return res.status(400).json({ error: passwordError})
+        
+        UsersService.hasUserWithEmail(
+            req.app.get('db'),
+            email
+        )
+            .then(hasUserWithEmail => {
+                if (hasUserWithEmail)
+                    return res.status(400).json({ error: `Email in use`})
+
+                return UsersService.hashPassword(password)
+                    .then(hashedPassword => {
+                        const newUser = {
+                            first_name,
+                            last_name,
+                            email,
+                            password: hashedPassword,
+                            impact,
+                            money_spent,
+                        }
+                        return UsersService.insertUser(req.app.get('db'), newUser)
+                            .then(user => {
+                                res 
+                                    .status(201)
+                                    .location(path.posix.join(req.originalUrl, `/${user.id}`))
+                                    .json(serializeUser(user))
+                            })
+                    })
+            })
+            .catch(next) 
     })
 
 

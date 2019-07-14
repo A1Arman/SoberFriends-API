@@ -7,5 +7,6 @@ CREATE TABLE users (
     password TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
     impact TEXT NOT NULL,
-    money_spent integer NOT NULL
+    money_spent INTEGER NOT NULL,
+    start_date TIMESTAMP DEFAULT now() NOT NULL
 );

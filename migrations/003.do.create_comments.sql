@@ -9,4 +9,4 @@ CREATE TABLE comments (
         REFERENCES posts(id) ON DELETE CASCADE NOT NULL,
     owner INTEGER
         REFERENCES users(id) ON DELETE CASCADE NOT NULL
-)
+);
