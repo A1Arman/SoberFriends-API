@@ -1,7 +1,8 @@
 const path = require('path');
 const express = require('express');
 const xss = require('xss');
-const UsersService = require('./user-service')
+const UsersService = require('./user-service');
+const { requireAuth } = require('../middleware/auth');
 
 const usersRouter = express.Router()
 const jsonParser = express.json()
@@ -19,10 +20,6 @@ const serializeUser = user => ({
 
 usersRouter
     .route('/')
-    .get((req, res, next) => {
-        const knexInstance = req.app.get('db')
-        UsersService.get
-    })
     .post(jsonParser, (req, res, next) => {
         const { first_name, last_name, email, password, impact, money_spent } = req.body
 
@@ -71,7 +68,7 @@ usersRouter
 
 usersRouter
     .route('/user')
-    .all((req, res, next) => {
+    .all(requireAuth, (req, res, next) => {
         UsersService.getById(
             req.app.get('db'),
             req.user.id
@@ -87,7 +84,7 @@ usersRouter
             })
             .catch(next)
     })
-    .get((req, res, next) => {
+    .get(requireAuth, (req, res, next) => {
         UsersService.getById(
             req.app.get('db'),
             req.user.id
@@ -103,7 +100,7 @@ usersRouter
             })
             .catch(next)
     })
-    .delete((req, res, next) => {
+    .delete(requireAuth, (req, res, next) => {
         UsersService.deleteUser(
             req.app.get('db'),
             req.user.id

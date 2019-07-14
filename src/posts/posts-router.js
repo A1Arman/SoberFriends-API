@@ -25,13 +25,14 @@ postsRouter
             .catch(next);
     })
     .post(requireAuth, jsonParser, (req, res, next) => {
+        const owner = req.user.id;
         const { post_title, post_content } = req.body
-        const post = { post_title, post_content } 
+        const post = { post_title, post_content, owner } 
 
         for (const [key, value] of Object.entries(post))
             if (value == null)
                 return res.status(400).json({
-                    error: { message: `Missing '${key} in body request`}
+                    error: { message: `Missing '${key}' in body request`}
                 });
 
         
