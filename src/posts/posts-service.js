@@ -11,6 +11,12 @@ const PostsService = {
                 return rows[0]
             })
     },
+    getById(knex, id) {
+        return knex.from('posts').select('*').where('id', id).first()
+    },
+    getByOwnerId(knex, owner_id) {
+        return knex.from('posts').select('*').where('owner', owner_id)
+    },
     deletePost(knex, id) {
         return knex('posts')
             .where({ id })

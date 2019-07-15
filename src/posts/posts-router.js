@@ -46,12 +46,23 @@ postsRouter
                 .catch(next);
     })
 
+    postsRouter
+        .route('/myPost')
+        .get(requireAuth, (req, res, next) => {
+            const owner = req.user.id;
+            PostsService.getByOwnerId(req.app.get('db'), owner)
+                .then(posts => {
+                    res.json(posts.map(serializePost))
+                })
+                .catch(next);
+        })
+
 
     postsRouter
-        .route('/:post_id')
+        .route('/:postId')
         .all(requireAuth, (req, res, next) => {
             const knexInstance = req.app.get('db');
-            PostsService.getById(knexInstance, req.params.post_id)
+            PostsService.getById(knexInstance, req.params.postId)
                 .then(post => {
                     if (!post) {
                         return res.status(404).json({
@@ -64,13 +75,25 @@ postsRouter
                 .catch(next)
         })
         .get(requireAuth, (req, res, next) => {res.json(serializePost(res.post))})
+        .delete(requireAuth, (req, res, next) => {
+            console.log(req.query.id)
+            PostsService.deletePost(
+                req.app.get('db'),
+                req.params.postId
+            )
+                .then(() => {
+                    res.status(204).end()
+                })
+                .catch(next)
+        })
         .patch(requireAuth, jsonParser, (req, res, next) => {
+            console.log(req.body)
             const { post_title, post_content} = req.body
             const postToUpdate = { post_title, post_content}
-
+            console.log(postToUpdate)
             const numberOfValues = Object.values(postToUpdate).filter(Boolean).length
             if (numberOfValues === 0) {
-                res.status(400).jsson({
+                res.status(400).json({
                     error: {
                         message: `Request must contain  'post title', and 'post content'`
                     }
@@ -79,7 +102,7 @@ postsRouter
 
             PostsService.updatePost(
                 req.app.get('db'),
-                req.params.post_id,
+                req.params.postId,
                 postToUpdate
             )
                 .then(numRowsAffected => {
