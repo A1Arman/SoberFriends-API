@@ -10,7 +10,6 @@ const jsonParser = express.json()
 const serializeComment = comment => ({
     id: comment.id,
     comment: xss(comment.comment),
-    date_commented: comment.date_commented,
     post_id: comment.post_id,
     owner: comment.owner
 })
@@ -35,8 +34,7 @@ commentsRouter
                 return res.status(400).json({
                     error: { message: `Missing '${key}' in request body`}
                 })
-        
-        newComment.date_commented = date_commented;
+
 
         CommentsService.insertComment(
             req.app.get('db'),
@@ -50,5 +48,23 @@ commentsRouter
             })
             .catch(next)
     })
+
+
+    commentsRouter
+        .route('/:postId')
+        .get(requireAuth, (req, res, next) => {
+            const knexInstance = req.app.get('db');
+            CommentsService.getById(knexInstance, req.params.postId)
+                .then(comments => {
+                    if (!comments) {
+                        return res.status(404).json({
+                            error: { message: `Post doesn't exist` }
+                        })
+                    }
+                    res.json(comments)
+                    next()
+                })
+                .catch(next)
+        })
 
     module.exports = commentsRouter

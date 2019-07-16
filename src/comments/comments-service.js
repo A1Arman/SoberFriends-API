@@ -14,9 +14,10 @@ const CommentsService = {
     getById(knex, id) {
       return knex
         .from('comments')
-        .select('*')
-        .where('id', id)
-        .first()
+        .innerJoin('users', 'comments.owner', '=', 'users.id')
+        .innerJoin('posts', 'comments.post_id', '=', 'posts.id')
+        .where('comments.post_id', id)
+        .select('comments.id', 'comments.comment', 'comments.date_commented', 'users.first_name', 'users.last_name', 'posts.post_title')
     },
     deleteComment(knex, id) {
       return knex('comments')

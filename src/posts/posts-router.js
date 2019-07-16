@@ -76,7 +76,6 @@ postsRouter
         })
         .get(requireAuth, (req, res, next) => {res.json(serializePost(res.post))})
         .delete(requireAuth, (req, res, next) => {
-            console.log(req.query.id)
             PostsService.deletePost(
                 req.app.get('db'),
                 req.params.postId
@@ -87,10 +86,9 @@ postsRouter
                 .catch(next)
         })
         .patch(requireAuth, jsonParser, (req, res, next) => {
-            console.log(req.body)
             const { post_title, post_content} = req.body
             const postToUpdate = { post_title, post_content}
-            console.log(postToUpdate)
+
             const numberOfValues = Object.values(postToUpdate).filter(Boolean).length
             if (numberOfValues === 0) {
                 res.status(400).json({
