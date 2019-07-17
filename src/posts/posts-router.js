@@ -29,6 +29,18 @@ postsRouter
         const { post_title, post_content } = req.body
         const post = { post_title, post_content, owner } 
 
+        if (!post_title) {
+            return res.status(400).json({
+                error: {message: `Missing 'title' in request`}
+            })
+        }
+
+        if (!post_content) {
+            return res.status(400).json({
+                error: {message: `Missing 'content' in request`}
+            })
+        }
+
         for (const [key, value] of Object.entries(post))
             if (value == null)
                 return res.status(400).json({
