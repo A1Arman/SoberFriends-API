@@ -73,8 +73,8 @@ postsRouter
         .post(requireAuth, (req, res, next) => {
             const knexInstance = req.app.get('db');
             const owner = req.user.id;
-            const postId = req.params.postId;
-            const newLike = { owner, postId }
+            const post_id = req.params.postId;
+            const newLike = { owner, post_id }
             PostsService.insertLike(knexInstance, newLike)
                 .then(comment => {
                     res
