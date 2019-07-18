@@ -75,7 +75,16 @@ postsRouter
             const owner = req.user.id;
             const post_id = req.params.postId;
             const newLike = { owner, post_id }
-            PostsService.insertLike(knexInstance, newLike)
+
+            PostsService.likedByUser(
+                req.app.get('db'),
+                owner
+            )
+                .then(likedByUser => {
+                    if (likedByUser)
+                        return res.status(400).json({ error: `Already liked`})
+
+                return PostsService.insertLike(knexInstance, newLike)
                 .then(like => {
                     res
                         .status(201)
@@ -84,7 +93,7 @@ postsRouter
                 })
                 .catch(next)
         })
-
+    })
     postsRouter
         .route('/:postId')
         .all(requireAuth, (req, res, next) => {

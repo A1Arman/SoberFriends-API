@@ -20,6 +20,9 @@ const PostsService = {
     insertLike(knex, newLike) {
         return knex.insert(newLike).into('likes').returning('*').then(rows => {return rows[0]})
     },
+    likedByUser(knex, owner_id) {
+        return knex.where('owner', owner_id).first().then(like => !!like)
+    },
     getByOwnerId(knex, owner_id) {
         return knex.from('posts').select('*').where('owner', owner_id)
     },
