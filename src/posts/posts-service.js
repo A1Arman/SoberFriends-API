@@ -14,6 +14,12 @@ const PostsService = {
     getById(knex, id) {
         return knex.from('posts').select('*').where('id', id).first()
     },
+    getLikesByPostId(knex, postId) {
+        return knex.from('likes').select('*').where('post_id', postId)
+    },
+    insertLike(knex, newLike) {
+        return knex.insert(newLike).into('likes').returning('*').then(rows => {return rows[0]})
+    },
     getByOwnerId(knex, owner_id) {
         return knex.from('posts').select('*').where('owner', owner_id)
     },

@@ -29,17 +29,6 @@ postsRouter
         const { post_title, post_content } = req.body
         const post = { post_title, post_content, owner } 
 
-        if (!post_title) {
-            return res.status(400).json({
-                error: {message: `Missing 'title' in request`}
-            })
-        }
-
-        if (!post_content) {
-            return res.status(400).json({
-                error: {message: `Missing 'content' in request`}
-            })
-        }
 
         for (const [key, value] of Object.entries(post))
             if (value == null)
@@ -69,6 +58,32 @@ postsRouter
                 .catch(next);
         })
 
+    postsRouter
+        .route('/:postId/likes')
+        .get(requireAuth, (req, res, next) => {
+            const knexInstance = req.app.get('db');
+            PostsService.getLikesByPostId(knexInstance, req.params.postId)
+                .then(likes => {
+                    if (!likes) {
+                        return res.status(404).json({error: `Post doesn't exist`})
+                    }
+                    return likes.json()
+                })
+        })
+        .post(requireAuth, (req, res, next) => {
+            const knexInstance = req.app.get('db');
+            const owner = req.user.id;
+            const postId = req.params.postId;
+            const newLike = { owner, postId }
+            PostsService.insertLike(knexInstance, newLike)
+                .then(comment => {
+                    res
+                        .status(201)
+                        .location(path.posix.join(req.originalUrl, `/${comment.id}`))
+                        .json(serializeComment(comment))
+                })
+                .catch(next)
+        })
 
     postsRouter
         .route('/:postId')
