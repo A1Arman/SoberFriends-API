@@ -76,11 +76,11 @@ postsRouter
             const post_id = req.params.postId;
             const newLike = { owner, post_id }
             PostsService.insertLike(knexInstance, newLike)
-                .then(comment => {
+                .then(like => {
                     res
                         .status(201)
-                        .location(path.posix.join(req.originalUrl, `/${comment.id}`))
-                        .json(serializeComment(comment))
+                        .location(path.posix.join(req.originalUrl, `/${like.id}`))
+                        .json(like)
                 })
                 .catch(next)
         })
