@@ -113,7 +113,7 @@ usersRouter
     usersRouter
         .route('/:postId/user')
         .get(requireAuth, (req, res, next) => {
-            usersRouter.getByPostId(
+            UsersService.getByPostId(
                 req.app.get('db'),
                 req.params.postId
             )
