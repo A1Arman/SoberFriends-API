@@ -60,16 +60,21 @@ postsRouter
 
     postsRouter
         .route('/:postId/likes')
-        .get(requireAuth, (req, res, next) => {
+        .all(requireAuth, (req, res, next) => {
             const knexInstance = req.app.get('db');
             PostsService.getLikesByPostId(knexInstance, req.params.postId)
                 .then(likes => {
                     if (!likes) {
-                        return res.status(404).json({error: `Post doesn't exist`})
+                        return res.status(404).json({
+                            error: { message: `Post doesn't exist` }
+                        })
                     }
-                    return likes.json()
+                    res.likes = likes
+                    next()
                 })
+                .catch(next)
         })
+        .get(requireAuth, (req, res, next) => {res.json(likes)})
         .post(requireAuth, (req, res, next) => {
             const knexInstance = req.app.get('db');
             const owner = req.user.id;
