@@ -76,7 +76,7 @@ postsRouter
             const post_id = req.params.postId;
             const newLike = { owner, post_id }
             
-            PostsService.likedByUser(knexInstance, owner)
+            PostsService.likedByUser(knexInstance, owner, post_id)
                 .then(liked => {
                     if (liked) 
                         return res.status(400).json({error: `Already Liked`})
