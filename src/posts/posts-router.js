@@ -14,13 +14,22 @@ const serializePost = post => ({
     owner: post.owner
 })
 
+const serializeFullPost = post => ({
+    id: post.id,
+    post_title: xss(post.post_title),
+    post_content: xss(post.post_content),
+    owner: post.owner,
+    first_name: post.first_name,
+    last_name: post.last_name
+})
+
 postsRouter
     .route('/')
     .get(requireAuth, (req, res, next) => {
         const knexInstance = req.app.get('db');
         PostsService.getAllPosts(knexInstance)
             .then(posts => {
-                res.json(posts.map(serializePost))
+                res.json(posts.map(serializeFullPost))
             })
             .catch(next);
     })

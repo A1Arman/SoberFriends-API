@@ -110,22 +110,5 @@ usersRouter
             })
     })
 
-    usersRouter
-        .route('/:postId/user')
-        .get(requireAuth, (req, res, next) => {
-            UsersService.getByPostId(
-                req.app.get('db'),
-                req.params.postId
-            )
-                .then(res => {
-                    if (!res.ok) {
-                        return res.status(404).json({
-                            error: { message: `Post doesn't exist` }
-                        })
-                    }
-                    return res.json();
-                })
-        })
-
 
     module.exports = usersRouter

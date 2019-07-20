@@ -42,13 +42,6 @@ const UsersService = {
             .where('id', id)
             .first()
     },
-    getByPostId(knex, postId) {
-        return knex
-            .from('users')
-            .select('*')
-            .where('post_id', postId)
-            .first()
-    },
     deleteUser(knex, id) {
         return knex('users')
             .where({ id })
