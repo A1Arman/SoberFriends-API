@@ -4,7 +4,7 @@ const PostsService = {
             .from('posts')
             .innerJoin('users', 'posts.owner', '=', 'users.id')
             .select('posts.id', 'posts.post_title', 'posts.post_content', 
-                'users.first_name', 'users.last_name')
+                'users.first_name', 'users.last_name', 'users.impact')
     },
     insertPost(knex, newPost) {
         return knex
