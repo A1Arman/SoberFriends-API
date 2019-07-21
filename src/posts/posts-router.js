@@ -65,7 +65,7 @@ postsRouter
                     const allPosts = posts.map(serializeFullPost)
                     const randomPost = Math.floor(Math.random() * allPosts.length)
                     const post = allPosts.filter(post => post.id === randomPost)
-                    return res.json(post)
+                    res.json(post)
                 })
                 .catch(next);
         })
