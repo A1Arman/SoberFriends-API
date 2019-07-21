@@ -62,7 +62,7 @@ postsRouter
             const knexInstance = req.app.get('db');
             PostsService.getAllPosts(knexInstance)
                 .then(posts => {
-                    const allPosts = res.json(posts.map(serializeFullPost))
+                    const allPosts = posts.map(serializeFullPost)
                     const randomPost = Math.floor(Math.random() * allPosts.length)
                     res.json(allPosts[randomPost])
                 })
