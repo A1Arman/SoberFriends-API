@@ -62,7 +62,7 @@ postsRouter
             const knexInstance = req.app.get('db');
             PostsService.getAllPosts(knexInstance)
                 .then(posts => {
-                    res.json(serializeFullPost(post))
+                    res.json(serializeFullPost(posts))
                 })
                 .catch(next);
         })
