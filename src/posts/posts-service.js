@@ -15,12 +15,6 @@ const PostsService = {
                 return rows[0]
             })
     },
-    getAllLikedPosts(knex) {
-        return knex
-            .from('posts')
-            .innerJoin('likes', 'posts.id', '=', 'likes.post_id')
-            .select('posts.id', 'likes.post_id', 'likes.owner')
-    },
     getById(knex, id) {
         return knex.from('posts').select('*').where('id', id).first()
     },
