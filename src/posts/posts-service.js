@@ -1,6 +1,6 @@
 const PostsService = {
     getAllPosts(knex) {
-        return knex
+        return knex(knex.raw('distinct on ("post.id")'))
             .from('posts')
             .innerJoin('users', 'posts.owner', '=', 'users.id')
             .innerJoin('likes', 'posts.id', '=', 'likes.post_id')
