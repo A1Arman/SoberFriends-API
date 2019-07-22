@@ -4,7 +4,7 @@ const PostsService = {
             .from('posts')
             .innerJoin('users', 'posts.owner', '=', 'users.id')
             .innerJoin('likes', 'posts.id', '=', 'likes.post_id') 
-            .select(knex.raw('distinct on ("posts.id") "posts.post_title", "posts.post_content", "users.first_name", "users.last_name", "likes.post_id", "likes.owner"'))  
+            .select(knex.raw('distinct on (posts.id) posts.post_title, posts.post_content, users.first_name, users.last_name, likes.post_id, likes.owner'))  
             
     },
     insertPost(knex, newPost) {
