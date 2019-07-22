@@ -64,6 +64,7 @@ postsRouter
                 .then(likes =>{
                     res.json(likes);
                 })
+                .catch(next)
         })
 
     postsRouter
