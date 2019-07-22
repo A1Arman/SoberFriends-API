@@ -1,11 +1,10 @@
 const PostsService = {
     getAllPosts(knex) {
-        return knex(knex.raw('distinct on ("post.id")'))
+        return knex(knex.raw('distinct on ("post.id") posts.id, posts.post_title, posts.post_content, users.first_name, users.last_name, likes.post_id, likes.owner'))
             .from('posts')
             .innerJoin('users', 'posts.owner', '=', 'users.id')
             .innerJoin('likes', 'posts.id', '=', 'likes.post_id')
-            .select('posts.id', 'posts.post_title', 'posts.post_content', 
-                'users.first_name', 'users.last_name', 'likes.post_id', 'likes.owner')
+            .select()
     },
     insertPost(knex, newPost) {
         return knex
