@@ -3,9 +3,8 @@ const PostsService = {
         return knex
             .from('posts')
             .innerJoin('users', 'posts.owner', '=', 'users.id')
-            .innerJoin('likes', 'posts.id', '=', 'likes.post_id') 
-            .select(knex.raw('distinct on (posts.id) posts.post_title, posts.post_content, users.first_name, users.last_name, likes.post_id, likes.owner'))  
-            
+            .select('posts.id', 'posts.post_title', 'posts.post_content', 
+                'users.first_name', 'users.last_name') 
     },
     insertPost(knex, newPost) {
         return knex
@@ -15,6 +14,12 @@ const PostsService = {
             .then(rows => {
                 return rows[0]
             })
+    },
+    getAllLikedPosts(knex) {
+        return knex
+            .from('posts')
+            .innerJoin('likes', 'posts.id', '=', 'likes.post_id')
+            .select('posts.id', 'likes.post_id', 'likes.owner')
     },
     getById(knex, id) {
         return knex.from('posts').select('*').where('id', id).first()
