@@ -127,6 +127,21 @@ postsRouter
                 })
                 .catch(next)
         })
+        .delete(requireAuth, (req, res, next) => {
+            const knexInstance = req.app.get('db');
+            const owner = req.user.id;
+            const post_id = req.params.postId;
+
+            PostsService.deleteLike(
+                knexInstance,
+                owner,
+                post_id
+            )
+                .then(() => {
+                    res.status(204).end()
+                })
+                .catch(next)
+        })
 
     postsRouter
         .route('/:postId')

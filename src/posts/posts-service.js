@@ -27,6 +27,12 @@ const PostsService = {
     likedByUser(knex, owner_id, post_id) {
         return knex.from('likes').where('owner', owner_id).andWhere(function() {this.where('post_id', post_id)}).first().then(like => !!like)
     },
+    deleteLike(knex, owner, post_id) {
+        return knex('posts')
+            .where({ owner })
+            .andWhere(function() {this.where('post_id', post_id)})
+            .delete()
+    },
     getByOwnerId(knex, owner_id) {
         return knex.from('posts').select('*').where('owner', owner_id)
     },
