@@ -57,17 +57,6 @@ postsRouter
     })
 
     postsRouter
-        .route('/getAllLikes')
-        .get(requireAuth, (req, user, next) => {
-            const knexInstance = req.app.get('db');
-            PostsService.getAllLikedPosts(knexInstance)
-                .then(likes =>{
-                    res.json(likes);
-                })
-                .catch(next)
-        })
-
-    postsRouter
         .route('/getRandom')
         .get(requireAuth, (req, res, next) => {
             const knexInstance = req.app.get('db');
