@@ -60,7 +60,35 @@ describe.only('Auth Endpoints', function() {
                     })
             })
 
-            it(`responds 400`)
+            it(`responds 400 'invalid email or password' when bad password`, () => {
+                const userInvalidUser = { email: testUser.email, password: 'incorrect'}
+                return supertest(app)
+                    .post('/api/auth/login')
+                    .send(userInvalidUser)
+                    .expect(400, {error: `Incorrect email or password`})
+            })
+
+            it(`responds 200 and JWT auth token using secret when valid`, () => {
+                const userValidCreds = {
+                    email: testUser.email,
+                    password: testUser.password
+                }
+                const expectedToken = jwt.sign(
+                    { user_id: testUser.id },
+                    process.env.JWT_SECRET,
+                    {
+                        subject: testUser.email,
+                        expiresIn: process.env.JWT_EXPIRY,
+                        algorithm: 'HS256'
+                    }
+                )
+                return supertest(app)
+                    .post('/api/auth/login')
+                    .send(userValidCreds)
+                    .expect(200, {
+                        authToken: expectedToken
+                    })
+            })
         })
     })
 })
